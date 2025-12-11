@@ -76,6 +76,10 @@ Pour répondre à la contrainte du sujet (ne pas appeler Firebase dans l'UI) :
 
 * Utilisation d'une **Sealed Interface** (`ListUiItem`) pour gérer proprement les différents types de vues dans la `LazyColumn` (Header, Content, Footer).
 * Utilisation de `System.currentTimeMillis()` à l'insertion pour le tri et le groupement par date dans les Headers.
+- API : Choisir une API avec endpoint /random (Chuck Norris interdit).Stockage (Room) : Sauvegarder les données avec ajout obligatoire du timestamp (System.currentTimeMillis).
+- Affichage Liste : Items les plus complets possible, encadrés par un Header (ex: date) et 
+- un Footer.Actions : Deux boutons requis : "Ajouter" (appel API) et "Tout supprimer".
+- Architecture : Respecter les 2 layers (UI & Data) avec mapping des objets.Navigation : Clic sur un item $\rightarrow$ ouverture d'un écran de détail.
 
 ### 3\. Stack Technique
 

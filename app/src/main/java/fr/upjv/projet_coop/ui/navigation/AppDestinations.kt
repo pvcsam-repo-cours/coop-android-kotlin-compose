@@ -11,5 +11,10 @@ sealed interface AppDestinations {
     data object Feature2 : AppDestinations
 
     @Serializable
+    data class MealDetail(val mealId: String) : AppDestinations {
+        override fun toString(): String = mealId
+    }
+
+    @Serializable
     data object Feature3 : AppDestinations
 }
