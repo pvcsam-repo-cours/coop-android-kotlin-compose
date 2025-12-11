@@ -3,19 +3,22 @@ package fr.upjv.projet_coop.ui.screen
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -43,68 +46,156 @@ fun HomeScreen(
     onNavigateToFeature3: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Box(
+    BoxWithConstraints(
         modifier = modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
+        val isLandscape = maxWidth > maxHeight
+
+        if (isLandscape) {
+            HomeLandscape(
+                onNavigateToFeature2 = onNavigateToFeature2,
+                onNavigateToFeature3 = onNavigateToFeature3
+            )
+        } else {
+            HomePortrait(
+                onNavigateToFeature2 = onNavigateToFeature2,
+                onNavigateToFeature3 = onNavigateToFeature3
+            )
+        }
+    }
+}
+
+@Composable
+fun HomePortrait(
+    onNavigateToFeature2: () -> Unit,
+    onNavigateToFeature3: () -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Top
+    ) {
+        Spacer(modifier = Modifier.height(48.dp))
+        
+        HeaderSection()
+
+        Spacer(modifier = Modifier.height(64.dp))
+
+        MembersSection()
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        ActionButtonsSection(
+            onNavigateToFeature2 = onNavigateToFeature2,
+            onNavigateToFeature3 = onNavigateToFeature3
+        )
+        
+        Spacer(modifier = Modifier.height(32.dp))
+    }
+}
+
+@Composable
+fun HomeLandscape(
+    onNavigateToFeature2: () -> Unit,
+    onNavigateToFeature3: () -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(24.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
         Column(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(24.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Top
+                .weight(1f)
+                .fillMaxHeight()
+                .verticalScroll(rememberScrollState()),
+            horizontalAlignment = Alignment.Start,
+            verticalArrangement = Arrangement.Center
         ) {
-            Spacer(modifier = Modifier.height(48.dp))
-
-            Text(
-                text = "Android Cloud 2025",
-                style = MaterialTheme.typography.headlineLarge.copy(
-                    fontWeight = FontWeight.ExtraBold,
-                    letterSpacing = 2.sp,
-                    color = NeonBlue
-                )
-            )
-            
-            Text(
-                text = "Master CCM",
-                style = MaterialTheme.typography.titleMedium.copy(
-                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f)
-                )
-            )
-
-            Spacer(modifier = Modifier.height(64.dp))
-
-            Text(
-                text = "MEMBERS",
-                style = MaterialTheme.typography.labelLarge.copy(
-                    color = MaterialTheme.colorScheme.primary,
-                    fontWeight = FontWeight.Bold
-                ),
-                modifier = Modifier.align(Alignment.Start)
-            )
-            
-            Spacer(modifier = Modifier.height(16.dp))
-
-            MemberCard(name = "MARIN Matthieu")
-            Spacer(modifier = Modifier.height(12.dp))
-            MemberCard(name = "CAUWET Maxime")
-
-            Spacer(modifier = Modifier.weight(1f))
-
-            ModernButton(
-                text = "Feature 2 (API List)",
-                onClick = onNavigateToFeature2
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            ModernButton(
-                text = "Feature 3 (Firebase)",
-                onClick = onNavigateToFeature3,
-                isSecondary = true
-            )
-            
+            HeaderSection()
             Spacer(modifier = Modifier.height(32.dp))
+            MembersSection()
         }
+
+        Spacer(modifier = Modifier.width(32.dp))
+
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            ActionButtonsSection(
+                onNavigateToFeature2 = onNavigateToFeature2,
+                onNavigateToFeature3 = onNavigateToFeature3
+            )
+        }
+    }
+}
+
+@Composable
+fun HeaderSection() {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(
+            text = "Android Cloud 2025",
+            style = MaterialTheme.typography.headlineLarge.copy(
+                fontWeight = FontWeight.ExtraBold,
+                letterSpacing = 2.sp,
+                color = NeonBlue
+            )
+        )
+        
+        Text(
+            text = "Master CCM",
+            style = MaterialTheme.typography.titleMedium.copy(
+                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f)
+            )
+        )
+    }
+}
+
+@Composable
+fun MembersSection() {
+    Column(horizontalAlignment = Alignment.Start, modifier = Modifier.fillMaxWidth()) {
+        Text(
+            text = "MEMBERS",
+            style = MaterialTheme.typography.labelLarge.copy(
+                color = MaterialTheme.colorScheme.primary,
+                fontWeight = FontWeight.Bold
+            )
+        )
+        
+        Spacer(modifier = Modifier.height(16.dp))
+
+        MemberCard(name = "MARIN Matthieu")
+        Spacer(modifier = Modifier.height(12.dp))
+        MemberCard(name = "CAUWET Maxime")
+    }
+}
+
+@Composable
+fun ActionButtonsSection(
+    onNavigateToFeature2: () -> Unit,
+    onNavigateToFeature3: () -> Unit
+) {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        ModernButton(
+            text = "Feature 2 (API List)",
+            onClick = onNavigateToFeature2
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        ModernButton(
+            text = "Feature 3 (Firebase)",
+            onClick = onNavigateToFeature3,
+            isSecondary = true
+        )
     }
 }
 
@@ -178,9 +269,17 @@ fun ModernButton(
     }
 }
 
-@Preview
+@Preview(widthDp = 400, heightDp = 800)
 @Composable
-fun HomeScreenPreview() {
+fun HomeScreenPreviewPortrait() {
+    ProjetcoopTheme {
+        HomeScreen({}, {})
+    }
+}
+
+@Preview(widthDp = 800, heightDp = 400)
+@Composable
+fun HomeScreenPreviewLandscape() {
     ProjetcoopTheme {
         HomeScreen({}, {})
     }
