@@ -6,16 +6,25 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
+import fr.upjv.projet_coop.architecture.getCustomApplication
 import fr.upjv.projet_coop.ui.screen.HomeScreen
+import fr.upjv.projet_coop.ui.screen.MealDetailScreen
+import fr.upjv.projet_coop.ui.screen.MealListScreen
+import fr.upjv.projet_coop.ui.viewmodel.MealViewModel
 
 @Composable
 fun AppNavigation(
     modifier: Modifier = Modifier
 ) {
     val navController = rememberNavController()
+    val context = LocalContext.current
+    val application = context.applicationContext.getCustomApplication()
 
     NavHost(
         navController = navController,
@@ -30,17 +39,30 @@ fun AppNavigation(
         }
 
         composable<AppDestinations.Feature2> {
-            // Placeholder for Feature 2
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Text("Feature 2 Screen (To be implemented)")
+            val viewModel: MealViewModel = viewModel {
+                MealViewModel(application.mealRepository)
             }
+            MealListScreen(
+                viewModel = viewModel,
+                onMealClick = { mealId ->
+                    navController.navigate(AppDestinations.MealDetail(mealId))
+                }
+            )
         }
-        
+
+        composable<AppDestinations.MealDetail> { backStackEntry ->
+            val mealDetail = backStackEntry.toRoute<AppDestinations.MealDetail>()
+            MealDetailScreen(
+                mealId = mealDetail.mealId,
+                mealRepository = application.mealRepository,
+                onBack = { navController.popBackStack() }
+            )
+        }
+
         composable<AppDestinations.Feature3> {
-            // Placeholder for Feature 3
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Text("Feature 3 Screen (To be implemented)")
-            }
+            fr.upjv.projet_coop.ui.screen.Feature3Screen(
+                onBack = { navController.popBackStack() }
+            )
         }
     }
 }
