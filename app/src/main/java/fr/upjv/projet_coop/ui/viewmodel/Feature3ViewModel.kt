@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
-// UI State for Feature 3
 data class Feature3UiState(
     val backgroundColor: Color = Color.White,
     val welcomeText: String = "Loading...",
@@ -22,10 +21,8 @@ data class Feature3UiState(
 
 class Feature3ViewModel : ViewModel() {
 
-    // Manual DI: Get repository from Application
     private val repository: ConfigRepository = CustomApplication.instance.configRepository
 
-    // Transform Domain Model (AppConfig) -> UI State
     val uiState: StateFlow<Feature3UiState> = repository.config
         .map { config ->
             Feature3UiState(
@@ -50,8 +47,7 @@ class Feature3ViewModel : ViewModel() {
     private fun parseColorSafe(colorString: String): Color {
         var trimmedColor = colorString.trim()
         android.util.Log.d("Feature3ViewModel", "Parsing color: '$trimmedColor'")
-        
-        // Fix: Auto-prepend '#' if missing
+
         if (trimmedColor.isNotEmpty() && !trimmedColor.startsWith("#")) {
             trimmedColor = "#$trimmedColor"
         }
@@ -60,7 +56,7 @@ class Feature3ViewModel : ViewModel() {
             Color(android.graphics.Color.parseColor(trimmedColor))
         } catch (e: Exception) {
             android.util.Log.e("Feature3ViewModel", "Failed to parse color: '$trimmedColor'", e)
-            Color.White // Fallback
+            Color.White
         }
     }
 }

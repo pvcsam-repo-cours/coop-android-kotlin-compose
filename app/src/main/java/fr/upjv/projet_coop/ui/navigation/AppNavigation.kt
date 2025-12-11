@@ -30,7 +30,6 @@ fun AppNavigation(
         }
 
         composable<AppDestinations.Feature2> {
-            // Placeholder for Feature 2
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 Text("Feature 2 Screen (To be implemented)")
             }

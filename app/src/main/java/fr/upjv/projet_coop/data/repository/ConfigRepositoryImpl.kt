@@ -26,8 +26,6 @@ class ConfigRepositoryImpl(
     override fun refreshConfig() {
         scope.launch {
             dataSource.fetchConfig().collect { dataMap ->
-                // Map Data DTO (Map) to Domain Model (AppConfig)
-                // Use defaults if keys are missing from remote
                 if (dataMap.isNotEmpty()) {
                     val newConfig = AppConfig(
                         backgroundColor = dataMap["feature3_background_color"]?.takeIf { it.isNotBlank() } ?: "#FFFFFF",
@@ -35,7 +33,6 @@ class ConfigRepositoryImpl(
                         isPromoActive = dataMap["feature3_promo_active"]?.toBooleanStrictOrNull() ?: false,
                         promoTitle = dataMap["feature3_promo_title"]?.takeIf { it.isNotBlank() } ?: "Special Offer",
                         promoCode = dataMap["feature3_promo_code"]?.takeIf { it.isNotBlank() } ?: "PROMO",
-                        // Default food image if empty
                         promoImageUrl = dataMap["feature3_promo_image_url"]?.takeIf { it.isNotBlank() } 
                             ?: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1000&auto=format&fit=crop" 
                     )

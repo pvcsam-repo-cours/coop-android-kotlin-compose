@@ -20,14 +20,12 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     override fun onNewToken(token: String) {
         super.onNewToken(token)
         Log.d("FCM", "New token: $token")
-        // In a real app, send this token to your server
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
         Log.d("FCM", "Message received from: ${remoteMessage.from}")
 
-        // Check if message contains a notification payload.
         remoteMessage.notification?.let {
             showNotification(it.title, it.body)
         }
@@ -37,7 +35,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         val channelId = "default_channel_id"
         val context = applicationContext
 
-        // Create Notification Channel (API 26+)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = "Default Channel"
             val descriptionText = "Default notification channel"
@@ -51,7 +48,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         }
 
         val builder = NotificationCompat.Builder(this, channelId)
-            .setSmallIcon(R.mipmap.ic_launcher) // Ensure this resource exists
+            .setSmallIcon(R.mipmap.ic_launcher)
             .setContentTitle(title ?: "Notification")
             .setContentText(body ?: "No content")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)

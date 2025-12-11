@@ -12,20 +12,17 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 
-// Data Source responsible for interacting with Firebase Remote Config SDK
 class FirebaseDataSource {
 
     private val remoteConfig: FirebaseRemoteConfig = Firebase.remoteConfig
 
     init {
         val configSettings = remoteConfigSettings {
-            // Interval requested by user
             minimumFetchIntervalInSeconds = 10
         }
         remoteConfig.setConfigSettingsAsync(configSettings)
     }
 
-    // Real-time config updates flow
     fun fetchConfig(): Flow<Map<String, String>> = callbackFlow {
         
         fun emitCurrentConfig() {
@@ -40,19 +37,16 @@ class FirebaseDataSource {
             trySend(result)
         }
 
-        // 1. Initial Fetch
         remoteConfig.fetchAndActivate().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 Log.d("FirebaseDataSource", "Initial fetch successful")
                 emitCurrentConfig()
             } else {
                 Log.e("FirebaseDataSource", "Initial fetch failed")
-                // Still try to emit cached values if any
                 emitCurrentConfig()
             }
         }
 
-        // 2. Real-time Listener
         val registration = remoteConfig.addOnConfigUpdateListener(object : ConfigUpdateListener {
             override fun onUpdate(configUpdate: ConfigUpdate) {
                 Log.d("FirebaseDataSource", "Config updated! Keys: ${configUpdate.updatedKeys}")

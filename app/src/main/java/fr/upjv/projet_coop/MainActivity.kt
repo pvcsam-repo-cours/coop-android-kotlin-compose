@@ -17,14 +17,13 @@ import fr.upjv.projet_coop.ui.theme.ProjetcoopTheme
 
 class MainActivity : ComponentActivity() {
 
-    // Permission request launcher
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
         if (isGranted) {
-            // FCM SDK (and your app) can post notifications.
+
         } else {
-            // TODO: Inform user that that your app will not show notifications.
+
         }
     }
 
@@ -32,7 +31,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        // Ask for NOTIFICATION permission on Android 13+
+
         askNotificationPermission()
 
         setContent {
@@ -47,18 +46,15 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun askNotificationPermission() {
-        // This is only necessary for API level >= 33 (TIRAMISU)
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) ==
                 PackageManager.PERMISSION_GRANTED
             ) {
-                // FCM SDK (and your app) can post notifications.
+
             } else if (shouldShowRequestPermissionRationale(android.Manifest.permission.POST_NOTIFICATIONS)) {
-                // TODO: Display an educational UI explaining to the user
-                // Request the permission
                  requestPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
             } else {
-                // Directly ask for the permission
                 requestPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
             }
         }

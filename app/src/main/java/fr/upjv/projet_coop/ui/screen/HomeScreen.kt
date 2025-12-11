@@ -56,8 +56,7 @@ fun HomeScreen(
             verticalArrangement = Arrangement.Top
         ) {
             Spacer(modifier = Modifier.height(48.dp))
-            
-            // Header
+
             Text(
                 text = "Android Cloud 2025",
                 style = MaterialTheme.typography.headlineLarge.copy(
@@ -76,7 +75,6 @@ fun HomeScreen(
 
             Spacer(modifier = Modifier.height(64.dp))
 
-            // Members Section
             Text(
                 text = "MEMBERS",
                 style = MaterialTheme.typography.labelLarge.copy(
@@ -94,7 +92,6 @@ fun HomeScreen(
 
             Spacer(modifier = Modifier.weight(1f))
 
-            // Action Buttons
             ModernButton(
                 text = "Feature 2 (API List)",
                 onClick = onNavigateToFeature2

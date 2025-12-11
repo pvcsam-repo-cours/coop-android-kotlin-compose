@@ -72,7 +72,7 @@ fun Feature3Screen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(uiState.backgroundColor) // Dynamic Background
+                .background(uiState.backgroundColor)
                 .padding(innerPadding),
             contentAlignment = Alignment.Center
         ) {
@@ -80,21 +80,19 @@ fun Feature3Screen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .padding(24.dp)
-                    .verticalScroll(scrollState) // Responsiveness: Scrollable
+                    .verticalScroll(scrollState)
             ) {
-                // Dynamic Welcome Text
                 Text(
                     text = uiState.welcomeText,
                     style = MaterialTheme.typography.headlineMedium.copy(
                         fontWeight = FontWeight.Bold,
-                        color = Color.White // Text color updated to White
+                        color = Color.White
                     ),
                     textAlign = TextAlign.Center
                 )
 
                 Spacer(modifier = Modifier.height(32.dp))
 
-                // Flash Promotion Card
                 AnimatedVisibility(visible = uiState.isPromoActive) {
                     PromoCard(
                         title = uiState.promoTitle,
@@ -102,8 +100,6 @@ fun Feature3Screen(
                         imageUrl = uiState.promoImageUrl
                     )
                 }
-                
-                // No more manual refresh button (Real-time update)
             }
         }
     }
@@ -122,10 +118,9 @@ fun PromoCard(title: String, code: String, imageUrl: String) {
         Column(
             modifier = Modifier
                 .padding(20.dp)
-                .fillMaxWidth(), // Ensure Column fills card width for centering
+                .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Product Image (Coil)
             if (imageUrl.isNotBlank()) {
                 AsyncImage(
                     model = imageUrl,
@@ -133,7 +128,7 @@ fun PromoCard(title: String, code: String, imageUrl: String) {
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .aspectRatio(16f / 9f) // Cinematic aspect ratio
+                        .aspectRatio(16f / 9f)
                         .clip(RoundedCornerShape(12.dp))
                 )
                 Spacer(modifier = Modifier.height(16.dp))
