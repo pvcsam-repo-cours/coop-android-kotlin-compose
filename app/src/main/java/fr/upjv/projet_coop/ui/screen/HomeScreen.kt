@@ -80,7 +80,7 @@ fun HomePortrait(
         verticalArrangement = Arrangement.Top
     ) {
         Spacer(modifier = Modifier.height(48.dp))
-        
+
         HeaderSection()
 
         Spacer(modifier = Modifier.height(64.dp))
@@ -93,7 +93,7 @@ fun HomePortrait(
             onNavigateToFeature2 = onNavigateToFeature2,
             onNavigateToFeature3 = onNavigateToFeature3
         )
-        
+
         Spacer(modifier = Modifier.height(32.dp))
     }
 }
@@ -151,7 +151,7 @@ fun HeaderSection() {
                 color = NeonBlue
             )
         )
-        
+
         Text(
             text = "Master CCM",
             style = MaterialTheme.typography.titleMedium.copy(
@@ -171,7 +171,7 @@ fun MembersSection() {
                 fontWeight = FontWeight.Bold
             )
         )
-        
+
         Spacer(modifier = Modifier.height(16.dp))
 
         MemberCard(name = "MARIN Matthieu")
