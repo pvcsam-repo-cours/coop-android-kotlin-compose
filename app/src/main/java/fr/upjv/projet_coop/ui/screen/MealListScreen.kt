@@ -65,7 +65,6 @@ fun MealListScreen(
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        // Header avec boutons
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -101,7 +100,6 @@ fun MealListScreen(
             }
         }
 
-        // Menu déroulant pour le tri
         SortDropdownMenu(
             selectedSortOption = uiState.sortOption,
             onSortOptionSelected = { viewModel.setSortOption(it) },
@@ -110,7 +108,6 @@ fun MealListScreen(
                 .padding(horizontal = 16.dp, vertical = 8.dp)
         )
 
-        // Message d'erreur
         uiState.error?.let { error ->
             Text(
                 text = error,
@@ -119,7 +116,6 @@ fun MealListScreen(
             )
         }
 
-        // Liste
         if (uiState.isLoading && uiState.items.isEmpty()) {
             Box(
                 modifier = Modifier.fillMaxSize(),
@@ -253,7 +249,6 @@ fun MealItemCard(
                 .padding(12.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            // Image
             AsyncImage(
                 model = meal.strMealThumb,
                 contentDescription = meal.strMeal,
@@ -263,7 +258,6 @@ fun MealItemCard(
                 contentScale = ContentScale.Crop
             )
 
-            // Informations
             Column(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(4.dp)

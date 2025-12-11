@@ -67,7 +67,6 @@ fun MealDto.toEntity(timestamp: Long = System.currentTimeMillis()): MealEntity {
 fun MealEntity.toData(): MealData {
     val ingredients = mutableListOf<IngredientMeasure>()
     
-    // Extraire les ingrédients et mesures non vides
     val ingredientList = listOf(
         strIngredient1, strIngredient2, strIngredient3, strIngredient4, strIngredient5,
         strIngredient6, strIngredient7, strIngredient8, strIngredient9, strIngredient10,

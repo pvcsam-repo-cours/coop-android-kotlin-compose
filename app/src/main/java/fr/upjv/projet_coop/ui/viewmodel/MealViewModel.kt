@@ -47,71 +47,56 @@ class MealViewModel(
             if (meals.isNotEmpty()) {
                 when (sortOption) {
                     SortOption.DATE -> {
-                        // Grouper les repas par date
                         val groupedByDate = meals.groupBy { meal ->
                             formatDate(meal.timestamp)
                         }
                         
-                        // Trier les dates (plus récentes en premier)
                         val sortedDates = groupedByDate.keys.sortedDescending()
                         
                         sortedDates.forEach { date ->
                             val mealsInDate = groupedByDate[date] ?: emptyList()
-                            // Ajouter le header
                             add(MealUiItem.Header(date))
                             
-                            // Ajouter les repas de cette date
                             mealsInDate.forEach { meal ->
                                 add(MealUiItem.MealItem(meal))
                             }
                             
-                            // Ajouter le footer avec le nombre d'éléments
                             add(MealUiItem.Footer(mealsInDate.size, date))
                         }
                     }
                     SortOption.COUNTRY -> {
-                        // Grouper les repas par pays
                         val groupedByCountry = meals.groupBy { meal ->
                             meal.strArea ?: "Non spécifié"
                         }
                         
-                        // Trier les pays par ordre alphabétique
                         val sortedCountries = groupedByCountry.keys.sorted()
                         
                         sortedCountries.forEach { country ->
                             val mealsInCountry = groupedByCountry[country] ?: emptyList()
-                            // Ajouter le header
                             add(MealUiItem.Header(country))
                             
-                            // Ajouter les repas de ce pays
                             mealsInCountry.forEach { meal ->
                                 add(MealUiItem.MealItem(meal))
                             }
                             
-                            // Ajouter le footer avec le nombre d'éléments
                             add(MealUiItem.Footer(mealsInCountry.size, country))
                         }
                     }
                     SortOption.CATEGORY -> {
-                        // Grouper les repas par catégorie
                         val groupedByCategory = meals.groupBy { meal ->
                             meal.strCategory ?: "Non spécifié"
                         }
                         
-                        // Trier les catégories par ordre alphabétique
                         val sortedCategories = groupedByCategory.keys.sorted()
                         
                         sortedCategories.forEach { category ->
                             val mealsInCategory = groupedByCategory[category] ?: emptyList()
-                            // Ajouter le header
                             add(MealUiItem.Header(category))
                             
-                            // Ajouter les repas de cette catégorie
                             mealsInCategory.forEach { meal ->
                                 add(MealUiItem.MealItem(meal))
                             }
                             
-                            // Ajouter le footer avec le nombre d'éléments
                             add(MealUiItem.Footer(mealsInCategory.size, category))
                         }
                     }

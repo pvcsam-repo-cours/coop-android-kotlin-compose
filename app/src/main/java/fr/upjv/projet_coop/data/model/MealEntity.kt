@@ -59,6 +59,6 @@ data class MealEntity(
     val strImageSource: String?,
     val strCreativeCommonsConfirmed: String?,
     val dateModified: String?,
-    val timestamp: Long // Timestamp d'ajout en base
+    val timestamp: Long
 )
 

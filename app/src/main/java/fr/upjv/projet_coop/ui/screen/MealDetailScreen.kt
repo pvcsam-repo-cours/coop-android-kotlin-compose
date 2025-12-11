@@ -79,7 +79,6 @@ fun MealDetailScreen(
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState())
             ) {
-                // Header avec bouton retour
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -102,7 +101,6 @@ fun MealDetailScreen(
                 }
 
                 meal?.let { mealData ->
-                    // Image
                     AsyncImage(
                         model = mealData.strMealThumb,
                         contentDescription = mealData.strMeal,
@@ -117,7 +115,6 @@ fun MealDetailScreen(
                         modifier = Modifier.padding(16.dp),
                         verticalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
-                        // Titre
                         Text(
                             text = mealData.strMeal ?: "Sans nom",
                             style = MaterialTheme.typography.headlineMedium.copy(
@@ -125,7 +122,6 @@ fun MealDetailScreen(
                             )
                         )
 
-                        // Catégorie et région
                         Row(
                             horizontalArrangement = Arrangement.spacedBy(16.dp)
                         ) {
@@ -137,7 +133,6 @@ fun MealDetailScreen(
                             }
                         }
 
-                        // Ingrédients
                         if (mealData.ingredients.isNotEmpty()) {
                             Card(
                                 modifier = Modifier.fillMaxWidth(),
@@ -177,7 +172,6 @@ fun MealDetailScreen(
                             }
                         }
 
-                        // Instructions
                         if (!mealData.strInstructions.isNullOrBlank()) {
                             Card(
                                 modifier = Modifier.fillMaxWidth(),
@@ -203,7 +197,6 @@ fun MealDetailScreen(
                             }
                         }
 
-                        // Tags
                         if (!mealData.strTags.isNullOrBlank()) {
                             Text(
                                 text = "Tags: ${mealData.strTags}",
