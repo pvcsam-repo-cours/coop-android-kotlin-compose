@@ -36,9 +36,9 @@ fun AppNavigation(
         }
         
         composable<AppDestinations.Feature3> {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Text("Feature 3 Screen (To be implemented)")
-            }
+            fr.upjv.projet_coop.ui.screen.Feature3Screen(
+                onBack = { navController.popBackStack() }
+            )
         }
     }
 }
