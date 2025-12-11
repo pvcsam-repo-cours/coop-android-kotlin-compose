@@ -110,7 +110,6 @@ fun HomeLandscape(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        // Left Side: Content (Scrollable if small height)
         Column(
             modifier = Modifier
                 .weight(1f)
@@ -126,7 +125,6 @@ fun HomeLandscape(
 
         Spacer(modifier = Modifier.width(32.dp))
 
-        // Right Side: Buttons
         Column(
             modifier = Modifier
                 .weight(1f)
