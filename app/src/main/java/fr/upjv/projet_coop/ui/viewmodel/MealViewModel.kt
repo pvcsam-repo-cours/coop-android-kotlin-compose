@@ -42,7 +42,7 @@ class MealViewModel(
         }
     }
 
-    private fun processMeals(meals: List<fr.upjv.projet_coop.data.model.MealData>, sortOption: SortOption) {
+    private fun processMeals(meals: List<MealData>, sortOption: SortOption) {
         val items = buildList {
             if (meals.isNotEmpty()) {
                 when (sortOption) {
