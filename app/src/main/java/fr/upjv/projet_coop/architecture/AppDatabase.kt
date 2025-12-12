@@ -1,4 +1,4 @@
-package fr.upjv.projet_coop.data.local
+package fr.upjv.projet_coop.architecture
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
