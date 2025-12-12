@@ -2,7 +2,7 @@ package fr.upjv.projet_coop.architecture
 
 import android.app.Application
 import androidx.room.Room
-import fr.upjv.projet_coop.data.local.AppDatabase
+import fr.upjv.projet_coop.architecture.AppDatabase
 import fr.upjv.projet_coop.data.repository.ConfigRepositoryImpl
 import fr.upjv.projet_coop.data.repository.MealRepository
 import fr.upjv.projet_coop.domain.repository.ConfigRepository

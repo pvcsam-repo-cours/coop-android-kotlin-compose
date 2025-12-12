@@ -27,19 +27,19 @@ class MealRepository(
         return try {
             Log.d("MealRepository", "Calling API endpoint...")
             val response = mealEndpoint.getRandomMeal()
-            Log.d("MealRepository", "API response received: ${response.meals?.size} meals")
+            Log.d("MealRepository", "API reponse received: ${response.meals?.size} meals")
             val mealDto = response.meals?.firstOrNull()
             
             if (mealDto != null && !mealDto.idMeal.isNullOrBlank()) {
-                Log.d("MealRepository", "Meal found: ${mealDto.strMeal}, ID: ${mealDto.idMeal}")
+                Log.d("MealRepository", "meal foud: ${mealDto.strMeal}, Id: ${mealDto.idMeal}")
                 val entity = mealDto.toEntity()
-                Log.d("MealRepository", "Inserting meal into database...")
+                Log.d("MealRepository", "Inserting meal into database ...")
                 mealDao.insertMeal(entity)
                 Log.d("MealRepository", "Meal inserted successfully")
                 Result.success(entity.toData())
             } else {
-                Log.e("MealRepository", "No meal found in API response")
-                Result.failure(Exception("No meal found in API response"))
+                Log.e("MealRepository", "No meal found in api response")
+                Result.failure(Exception("No meal found in API respoonse"))
             }
         } catch (e: Exception) {
             Log.e("MealRepository", "Error in addRandomMeal", e)
